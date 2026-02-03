@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Data Korban – Arsip Forensik</title>
+<style>
+body{
+  margin:0;
+  background:radial-gradient(circle,#0e0a0a,#000);
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Segoe UI, sans-serif;
+  color:#eee;
+}
+
+.panel{
+  width:520px;
+  background:rgba(10,0,0,0.93);
+  border:2px solid #7a0000;
+  padding:30px;
+  border-radius:18px;
+  box-shadow:0 0 45px rgba(255,0,0,0.4);
+}
+
+h2{
+  text-align:center;
+  letter-spacing:3px;
+  margin-bottom:20px;
+}
+
+.field{margin-bottom:12px;}
+label{font-size:13px; opacity:0.8;}
+
+input{
+  width:100%;
+  padding:10px;
+  background:#000;
+  border:2px solid #444;
+  color:#fff;
+  font-size:14px;
+}
+
+input.salah{
+  border-color:red;
+  box-shadow:0 0 10px red;
+}
+
+button{
+  width:100%;
+  margin-top:16px;
+  padding:12px;
+  background:#7a0000;
+  border:none;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{background:#a00000;}
+
+#foto{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#000;
+  justify-content:center;
+  align-items:center;
+}
+
+/* LAYOUT FOTO + TEKS */
+.foto-wrap{
+  display:flex;
+  gap:26px;
+  align-items:center;
+}
+
+/* FOTO PORTRAIT – DIPERKECIL */
+#foto img{
+  max-width:35%;
+  max-height:70%;
+  border:4px solid #7a0000;
+  border-radius:12px;
+  box-shadow:0 0 45px rgba(255,0,0,0.5);
+}
+
+/* TEKS MISTERIUS */
+.catatan{
+  max-width:320px;
+  font-size:16px;
+  line-height:1.6;
+  color:#ffdede;
+  opacity:0;
+  animation:fadeIn 1.2s ease forwards;
+}
+.catatan strong{
+  color:#ffb3b3;
+  letter-spacing:1px;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateX(10px);}
+  to{opacity:1; transform:translateX(0);}
+}
+</style>
+</head>
+<body>
+
+<div class="panel" id="form">
+  <h2>ARSIP KORBAN</h2>
+
+  <div class="field"><label>Nama</label><input id="nama"></div>
+  <div class="field"><label>Usia</label><input id="usia"></div>
+  <div class="field"><label>Jenis Kelamin</label><input id="jk"></div>
+  <div class="field"><label>Tanggal Kematian</label><input id="tgl"></div>
+  <div class="field"><label>Waktu Kematian</label><input id="waktu"></div>
+  <div class="field"><label>Tempat Kematian</label><input id="tempat"></div>
+
+  <button onclick="cek()">VERIFIKASI DATA</button>
+</div>
+
+<div id="foto">
+  <div class="foto-wrap">
+    <img src="fronsik2.png" alt="Hasil Forensik">
+    <div class="catatan">
+      <strong>John Doe…</strong><br>
+      tapi kenapa catatan ini cocok dengan <strong>Sarah Lee</strong>?<br>
+      <em>WHY</em> 😲
+    </div>
+  </div>
+</div>
+
+<script>
+function cek(){
+  const data={
+    nama:"SARAH LEE",
+    usia:"28",
+    jk:"PEREMPUAN",
+    tgl:"7 MARET 2023",
+    waktu:"23:45",
+    tempat:"789 OAK STREET, MYSTIC FALLS, AS"
+  };
+
+  let benar=true;
+  document.querySelectorAll("input").forEach(i=>i.classList.remove("salah"));
+
+  if(nama.value.toUpperCase()!==data.nama) benar=false;
+  if(usia.value!==data.usia) benar=false;
+  if(jk.value.toUpperCase()!==data.jk) benar=false;
+  if(tgl.value.toUpperCase()!==data.tgl) benar=false;
+  if(waktu.value!==data.waktu) benar=false;
+  if(tempat.value.toUpperCase()!==data.tempat) benar=false;
+
+  if(benar){
+    form.style.display="none";
+    foto.style.display="flex";
+  }else{
+    document.querySelectorAll("input").forEach(i=>i.classList.add("salah"));
+    setTimeout(()=>{
+      document.querySelectorAll("input").forEach(i=>{
+        i.value="";
+        i.classList.remove("salah");
+      });
+    },1300);
+  }
+}
+</script>
+
+</body>
+</html>
